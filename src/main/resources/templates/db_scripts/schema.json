@@ -30,7 +30,7 @@
         },
         {
           "fieldName": "itemId",
-          "tOps": "DELETE",
+          "tOps": "ADD",
           "caseSensitive": false,
           "removeAccents": true
         },
