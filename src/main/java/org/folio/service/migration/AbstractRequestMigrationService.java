@@ -63,6 +63,7 @@ abstract class AbstractRequestMigrationService<T extends RequestMigrationContext
   }
 
   public Future<Void> migrate() {
+    log.info("migrate::");
     final long startTime = currentTimeMillis();
 
     if (!shouldMigrate(moduleVersion)) {
