@@ -66,10 +66,11 @@ abstract class AbstractRequestMigrationService<T extends RequestMigrationContext
     final long startTime = currentTimeMillis();
 
     if (!shouldMigrate(moduleVersion)) {
+      log.info("skipping migration, version " + moduleVersion);
       return succeededFuture();
     }
 
-    log.info("migration started, batch size " + BATCH_SIZE);
+    log.info("migration started, batch size " + BATCH_SIZE + " for version " + moduleVersion);
 
     return getBatchCount()
       .compose(this::migrateRequests)
@@ -101,6 +102,7 @@ abstract class AbstractRequestMigrationService<T extends RequestMigrationContext
       return false;
     }
 
+    log.info("migration should not be skipped");
     return true;
   }
 
