@@ -1133,7 +1133,13 @@
       { "name": "KAFKA_HOST", "value": "kafka" },
       { "name": "KAFKA_PORT", "value": "9092" },
       { "name": "REPLICATION_FACTOR", "value": "1" },
-      { "name": "ENV", "value": "folio" }
+      { "name": "ENV", "value": "folio" },
+      { "name": "DB_MAXSHAREDPOOLSIZE", "value": "3" },
+      { "name": "DB_CONNECTIONRELEASEDELAY", "value": "60000" },
+      { "name": "DB_RECONNECTATTEMPTS", "value": "3" },
+      { "name": "DB_RECONNECTINTERVAL", "value": "10000" },
+      { "name": "DB_EXPLAIN_QUERY_THRESHOLD", "value": "1000000" },
+      { "name": "DB_ALLOW_SUPPRESS_OPTIMISTIC_LOCKING", "value": "0001-01-01T00:00:00Z" }
     ]
   }
 }
