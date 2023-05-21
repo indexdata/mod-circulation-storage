@@ -155,9 +155,11 @@
               "type": "string",
               "format": "date-time"
             }
-          }
+          },
+          "additionalProperties": false
         }
-      }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false,
