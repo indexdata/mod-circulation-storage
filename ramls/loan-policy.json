@@ -15,9 +15,11 @@
       "type": "string"
     },
     "loanable": {
+      "description": "tbd",
       "type": "boolean"
     },
     "loansPolicy": {
+      "description": "tbd",
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -45,6 +47,7 @@
           "description": "Opening offset time period"
         },
         "fixedDueDateScheduleId": {
+          "description": "tbd",
           "type": "string",
           "description": "Fixed due date schedule (due date limit)"
         },
@@ -61,6 +64,7 @@
       "description": "Is item renewable"
     },
     "renewalsPolicy": {
+      "description": "tbd",
       "type": "object",
       "properties": {
         "unlimited": {
@@ -91,6 +95,7 @@
       }
     },
     "requestManagement": {
+      "description": "tbd",
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -126,6 +131,7 @@
           }
         },
         "holds": {
+          "description": "tbd",
           "type": "object",
           "additionalProperties": false,
           "properties": {
@@ -146,6 +152,7 @@
           }
         },
         "pages": {
+          "description": "tbd",
           "type": "object",
           "additionalProperties": false,
           "properties": {
