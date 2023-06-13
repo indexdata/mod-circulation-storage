@@ -66,6 +66,7 @@
             "description": "Is this real time event"
           },
           "sendOptions": {
+            "description": "tbd",
             "type": "object",
             "additionalProperties": false,
             "properties": {
@@ -92,10 +93,12 @@
                 ]
               },
               "sendBy": {
+                "description": "tbd",
                 "type": "object",
                 "$ref": "interval.json"
               },
               "sendEvery": {
+                "description": "tbd",
                 "type": "object",
                 "$ref": "interval.json"
               }
@@ -153,6 +156,7 @@
             "description": "Is this real time event"
           },
           "sendOptions": {
+            "description": "tbd",
             "type": "object",
             "additionalProperties": false,
             "properties": {
@@ -176,10 +180,12 @@
                 ]
               },
               "sendBy": {
+                "description": "tbd",
                 "type": "object",
                 "$ref": "interval.json"
               },
               "sendEvery": {
+                "description": "tbd",
                 "type": "object",
                 "$ref": "interval.json"
               }
@@ -237,6 +243,7 @@
             "description": "Is this real time event"
           },
           "sendOptions": {
+            "description": "tbd",
             "type": "object",
             "additionalProperties": false,
             "properties": {
@@ -263,10 +270,12 @@
                 ]
               },
               "sendBy": {
+                "description": "tbd",
                 "type": "object",
                 "$ref": "interval.json"
               },
               "sendEvery": {
+                "description": "tbd",
                 "type": "object",
                 "$ref": "interval.json"
               }
