@@ -1,20 +1,25 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "tbd",
   "type": "object",
   "properties": {
     "id": {
       "type": "string"
     },
     "name": {
+      "description": "tbd",
       "type": "string"
     },
     "description": {
+      "description": "tbd",
       "type": "string"
     },
     "active": {
+      "description": "tbd",
       "type": "boolean"
     },
     "template": {
+      "description": "tbd",
       "type": "string"
     },
     "metadata": {
