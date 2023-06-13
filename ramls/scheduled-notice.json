@@ -1,5 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "tbd",
   "type": "object",
   "properties": {
     "id": {
@@ -54,6 +55,7 @@
       ]
     },
     "noticeConfig": {
+      "description": "tbd",
       "type": "object",
       "properties": {
         "timing": {
