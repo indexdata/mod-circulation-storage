@@ -7,7 +7,6 @@ name: k8s-deploy-latest
 
 env:
   K8S_NAMESPACE: 'orchid-dev'
-  K8S_DEPLOYMENT: 'mod-circulation-storage-dev2'
 
 on:
   workflow_dispatch
@@ -17,11 +16,20 @@ jobs:
 
     runs-on: ubuntu-latest
     steps: 
-      - name: Deploy latest to K8s
+      - name: Deploy latest to K8s dev1 tenant
         uses: actions-hub/kubectl@v1.21.2
         env: 
           KUBE_CONFIG: ${{ secrets.ORCHID_DEV_SA_KUBECONFIG }}
         with:
           args:
-            -n ${{ env.K8S_NAMESPACE }} rollout restart deployment ${{ env.K8S_DEPLOYMENT }}
+            -n ${{ env.K8S_NAMESPACE }} rollout restart deployment mod-circulation-storage-dev1
+
+      - name: Deploy latest to K8s dev2 tenant
+        uses: actions-hub/kubectl@v1.21.2
+        env: 
+          KUBE_CONFIG: ${{ secrets.ORCHID_DEV_SA_KUBECONFIG }} mod-circulation-storage-dev2
+        with:
+          args:
+            -n ${{ env.K8S_NAMESPACE }} rollout restart deployment mod-circulation-storage-dev2
         
+

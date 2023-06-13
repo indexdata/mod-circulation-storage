@@ -6,7 +6,7 @@ on:
     types: [opened, synchronize, reopened]
 
 env:
-  PUBLISH_BRANCH: 'hebis-reminder-fees'
+  PUBLISH_BRANCH: 'deployment'
   OKAPI_URL: 'https://orchid-dev-okapi.folio-dev.indexdata.com' 
   OKAPI_SECRET_USER: "${{ secrets.ORCHID_DEV_OKAPI_USER }}"
   OKAPI_SECRET_PASSWORD: "${{ secrets.ORCHID_DEV_OKAPI_PASSWORD }}"
