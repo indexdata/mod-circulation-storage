@@ -11,6 +11,7 @@
       }
     },
     "notAnonymizedLoans": {
+      "description": "tbd",
       "type": "array",
       "items": {
         "description": "Collection of loans",
