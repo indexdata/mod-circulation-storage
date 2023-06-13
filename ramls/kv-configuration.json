@@ -7,27 +7,35 @@
       "$ref": "raml-util/schemas/uuid.schema"
     },
     "module": {
+      "description": "tbd",
       "type": "string"
     },
     "configName": {
+      "description": "tbd",
       "type": "string"
     },
     "code": {
+      "description": "tbd",
       "type": "string"
     },
     "description": {
+      "description": "tbd",
       "type": "string"
     },
     "default": {
+      "description": "tbd",
       "type": "boolean"
     },
     "enabled": {
+      "description": "tbd",
       "type": "boolean"
     },
     "value": {
+      "description": "tbd",
       "type": "string"
     },
     "userId": {
+      "description": "tbd",
       "type": "string"
     },
     "metadata": {
