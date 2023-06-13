@@ -100,6 +100,7 @@
       "additionalProperties": false,
       "properties": {
         "recalls": {
+          "description": "tbd",
           "type": "object",
           "additionalProperties": false,
           "properties": {
