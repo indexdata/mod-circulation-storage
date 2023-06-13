@@ -6,15 +6,19 @@
       "type": "string"
     },
     "name": {
+      "description": "tbd",
       "type": "string"
     },
     "description" : {
+      "description": "tbd",
       "type": "string"
     },
     "publicDescription": {
+      "description": "tbd",
       "type": "string"
     },
     "requiresAdditionalInformation": {
+      "description": "tbd",
       "type": "boolean"
     },
     "metadata": {
