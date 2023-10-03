@@ -15,12 +15,13 @@
       "type": "string"
     },
     "loanable": {
-      "description": "tbd",
+      "description": "Flag that indicates whether this policy allows loans",
       "type": "boolean"
     },
     "loansPolicy": {
       "description": "tbd",
       "type": "object",
+      "description": "Settings for loans",
       "additionalProperties": false,
       "properties": {
         "profileId": {
@@ -66,6 +67,7 @@
     "renewalsPolicy": {
       "description": "tbd",
       "type": "object",
+      "description": "Settings for renewals",
       "properties": {
         "unlimited": {
           "type": "boolean",
@@ -97,11 +99,13 @@
     "requestManagement": {
       "description": "tbd",
       "type": "object",
+      "description": "Settings for various request types",
       "additionalProperties": false,
       "properties": {
         "recalls": {
           "description": "tbd",
           "type": "object",
+          "description": "Settings for recall requests",
           "additionalProperties": false,
           "properties": {
             "alternateGracePeriod": {
@@ -134,6 +138,7 @@
         "holds": {
           "description": "tbd",
           "type": "object",
+          "description": "Settings for hold requests",
           "additionalProperties": false,
           "properties": {
             "alternateCheckoutLoanPeriod": {
@@ -155,6 +160,7 @@
         "pages": {
           "description": "tbd",
           "type": "object",
+          "description": "Settings for page requests",
           "additionalProperties": false,
           "properties": {
             "alternateCheckoutLoanPeriod": {

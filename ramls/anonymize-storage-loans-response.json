@@ -11,7 +11,7 @@
       }
     },
     "notAnonymizedLoans": {
-      "description": "tbd",
+      "description": "Not anonymized loan IDs",
       "type": "array",
       "items": {
         "description": "Collection of loans",

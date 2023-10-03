@@ -2,41 +2,42 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "description": "tbd",
   "type": "object",
+  "description": "Configuration entry",
   "properties": {
     "id": {
       "type": "string",
       "$ref": "raml-util/schemas/uuid.schema"
     },
     "module": {
-      "description": "tbd",
+      "description": "Name of a FOLIO module",
       "type": "string"
     },
     "configName": {
-      "description": "tbd",
+      "description": "Configuration name",
       "type": "string"
     },
     "code": {
-      "description": "tbd",
+      "description": "Configuration code",
       "type": "string"
     },
     "description": {
-      "description": "tbd",
+      "description": "Configuration description",
       "type": "string"
     },
     "default": {
-      "description": "tbd",
+      "description": "Flag that indicates whether this is the default configuration",
       "type": "boolean"
     },
     "enabled": {
-      "description": "tbd",
+      "description": "Flag that indicates whether this configuration is enabled",
       "type": "boolean"
     },
     "value": {
-      "description": "tbd",
+      "description": "Configuration value",
       "type": "string"
     },
     "userId": {
-      "description": "tbd",
+      "description": "User ID",
       "type": "string"
     },
     "metadata": {
