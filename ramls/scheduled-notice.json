@@ -1,5 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "tbd",
   "type": "object",
   "description": "Scheduled patron notice",
   "properties": {
@@ -56,6 +57,7 @@
       ]
     },
     "noticeConfig": {
+      "description": "tbd",
       "type": "object",
       "description": "Scheduled notice configuration",
       "properties": {

@@ -17,6 +17,7 @@
       "type": "string"
     },
     "schedules": {
+      "description": "tbd",
       "id": "schedules",
       "description": "List date ranges with a due date for each",
       "type": "array",
