@@ -7,7 +7,7 @@ on:
 
 env:
   PUBLISH_BRANCH: 'deployment'
-  OKAPI_URL: 'https://orchid-dev-okapi.folio-dev.indexdata.com' 
+  OKAPI_URL: 'https://orchid-dev-okapi.folio-dev.indexdata.com'
   OKAPI_SECRET_USER: "${{ secrets.ORCHID_DEV_OKAPI_USER }}"
   OKAPI_SECRET_PASSWORD: "${{ secrets.ORCHID_DEV_OKAPI_PASSWORD }}"
 
@@ -37,14 +37,14 @@ jobs:
           echo "MODULE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)-${SHA_SHORT}" >> $GITHUB_ENV
 
       - name: Cache SonarCloud packages
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
       - name: Cache Maven packages
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
@@ -126,7 +126,7 @@ jobs:
           method: "POST"
           accept: 201
           timeout: 10000
-          headers: | 
+          headers: |
             {
               "content-type": "application/json",
               "x-okapi-tenant": "supertenant",
