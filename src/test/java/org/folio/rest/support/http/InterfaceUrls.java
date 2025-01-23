@@ -47,5 +47,12 @@ public class InterfaceUrls {
   public static URL checkOutStorageUrl(String subPath) throws MalformedURLException {
     return storageUrl("/check-out-lock-storage" + subPath);
   }
+  public static URL printEventsUrl(String subPath) throws MalformedURLException {
+    return storageUrl("/print-events-storage" + subPath);
+  }
+
+  public static URL circulationSettingsUrl(String subPath) throws MalformedURLException {
+    return storageUrl("/circulation-settings-storage/circulation-settings" + subPath);
+  }
 
 }

@@ -41,6 +41,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -126,6 +127,10 @@ public class RequestsApiTest extends ApiTests {
     UUID holdingsRecordId = UUID.randomUUID();
     UUID instanceId = UUID.randomUUID();
     UUID pickupServicePointId = UUID.randomUUID();
+    String itemEffectiveLocationId = UUID.randomUUID().toString();
+    String itemEffectiveLocationName = "Book";
+    String retrievalServicePointId = UUID.randomUUID().toString();
+    String retrievalServicePointName = "SP-1";
     DateTime requestDate = new DateTime(2017, 7, 22, 10, 22, 54, DateTimeZone.UTC);
     DateTime requestExpirationDate = new DateTime(2017, 7, 30, 0, 0, DateTimeZone.UTC);
     DateTime holdShelfExpirationDate = new DateTime(2017, 8, 31, 0, 0, DateTimeZone.UTC);
@@ -133,7 +138,9 @@ public class RequestsApiTest extends ApiTests {
     UUID isbnIdentifierId = UUID.randomUUID();
     UUID issnIdentifierId = UUID.randomUUID();
 
-    final RequestItemSummary nod = new RequestItemSummary("Nod", "565578437802")
+    final RequestItemSummary nod = new RequestItemSummary("Nod",
+      "565578437802", Collections.emptyList(), itemEffectiveLocationId,
+      itemEffectiveLocationName, retrievalServicePointId, retrievalServicePointName)
       .addIdentifier(isbnIdentifierId, "978-92-8011-566-9")
       .addIdentifier(issnIdentifierId, "2193988");
 
@@ -158,6 +165,7 @@ public class RequestsApiTest extends ApiTests {
       .withPosition(1)
       .withPickupServicePointId(pickupServicePointId)
       .withTags(new Tags().withTagList(asList("new", "important")))
+      .withItemLocationCode("CN/P1")
       .create(),
       requestStorageUrl())
       .getJson();
@@ -181,6 +189,10 @@ public class RequestsApiTest extends ApiTests {
     assertThat(representation.containsKey("item"), is(true));
     JsonObject item = representation.getJsonObject("item");
     assertThat(item.getString("barcode"), is("565578437802"));
+    assertThat(item.getString("itemEffectiveLocationId"), is(itemEffectiveLocationId));
+    assertThat(item.getString("itemEffectiveLocationName"), is(itemEffectiveLocationName));
+    assertThat(item.getString("retrievalServicePointId"), is(retrievalServicePointId));
+    assertThat(item.getString("retrievalServicePointName"), is(retrievalServicePointName));
 
     assertThat(representation.containsKey("instance"), is(true));
     JsonObject instance = representation.getJsonObject("instance");
@@ -227,6 +239,8 @@ public class RequestsApiTest extends ApiTests {
 
     assertThat(tagsRepresentation.containsKey("tagList"), is(true));
     assertThat(tagsRepresentation.getJsonArray("tagList"), contains("new", "important"));
+
+    assertThat(representation.getString("itemLocationCode"), is("CN/P1"));
 
     assertCreateEventForRequest(representation);
   }
@@ -1957,6 +1971,55 @@ public class RequestsApiTest extends ApiTests {
       hasParameter("status", "null")
     )));
   }
+
+  @Test
+  public void canCreateRequestWithEcsRequestPhase() throws MalformedURLException,
+    ExecutionException, InterruptedException, TimeoutException {
+
+    JsonObject representation = createEntity(
+      new RequestRequestBuilder()
+        .page()
+        .primary()
+        .withId(UUID.randomUUID())
+        .create(),
+      requestStorageUrl()).getJson();
+    assertThat(representation.getString("ecsRequestPhase"), is("Primary"));
+
+    representation = createEntity(
+      new RequestRequestBuilder()
+        .page()
+        .secondary()
+        .withId(UUID.randomUUID())
+        .create(),
+      requestStorageUrl()).getJson();
+    assertThat(representation.getString("ecsRequestPhase"), is("Secondary"));
+
+    representation = createEntity(
+      new RequestRequestBuilder()
+        .page()
+        .intermediate()
+        .withId(UUID.randomUUID())
+        .create(),
+      requestStorageUrl()).getJson();
+    assertThat(representation.getString("ecsRequestPhase"), is("Intermediate"));
+  }
+
+  @Test
+  public void shouldReturn400IfInvalidEcsRequestPhase() throws MalformedURLException,
+    ExecutionException, InterruptedException, TimeoutException {
+
+    var request = new RequestRequestBuilder()
+        .page()
+        .withEcsRequestPhase("Invalid")
+        .withId(UUID.randomUUID())
+        .create();
+
+    CompletableFuture<JsonResponse> createCompleted = new CompletableFuture<>();
+    client.post(requestStorageUrl(), request, TENANT_ID, ResponseHandler.json(createCompleted));
+
+    assertThat(createCompleted.get(5, TimeUnit.SECONDS).getStatusCode(), is(400));
+  }
+
 
   private RequestDto.RequestDtoBuilder holdShelfOpenRequest() {
     return RequestDto.builder()

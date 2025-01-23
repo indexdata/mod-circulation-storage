@@ -1,3 +1,86 @@
+## 17.3.5 2025-01-22
+*  Support DCB Re-requests added isDcbReRequestCancellation in Request.json (CIRCSTORE-552)
+
+## 17.3.4 2025-01-15
+* Create script to update normalize_isbns to have full schema path (CIRCSTORE-553)
+
+## 17.3.3 2025-01-13
+* Add new LocationUpdateKafkaProcessor to sync location with request table (CIRCSTORE-556)
+* Add new class like ServicePointUpdateProcessorForRequest to sync RetrievalSP updates in Request records (CIRCSTORE-541)
+* Extend ItemUpdateProcessorForRequest to sync item updates in Request records (CIRCSTORE-540)
+* Filter request by Retrieval Service Point (CIRCSTORE-539)
+
+## 17.3.2 2024-12-12
+* Add Intermediate ECS request phase (CIRCSTORE-542)
+
+## 17.3.1 2024-11-30
+* Add ILR support for publishing batch request update events (CIRCSTORE-526)
+* Publish request batch event when requests are reordered (CIRCSTORE-521)
+* Create new transit staff slip for mediated request activities (CIRCSTORE-525)
+* Update instead save with the same name circ settings (CIRCSTORE-519)
+* Create CRUD API for storing `circulation-settings` (CIRCSTORE-509)
+* Add `ecsRequestPhase` field to request schema (CIRCSTORE-502)
+* Review and cleanup Module Descriptor for mod-circulation-storage (CIRCSTORE-524)
+
+## 17.3.0 2024-10-30
+* Upgrade RMB to 35.3.0, Vert.x to 4.5.9, Kafka wrapper to 3.1.1 (CIRCSTORE-520, CIRCSTORE-536, CIRCSTORE-499)
+* Upgrade `holdings-storage` API (CIRCSTORE-533)
+* Persisting due date slip template (CIRCSTORE-529)
+* Update existing setting instead of inserting new record with the same name (CIRCSTORE-519)
+* Create CRUD API for storing `circulation-settings` (CIRCSTORE-515)
+* Implement POST API to fetch print Event Details (CIRCSTORE-514)
+* Implementing post print Event API (CIRCSTORE-513)
+* Added a new test case for persisting and retrieving EnableRequestPrintDetailsSetting (CIRCSTORE-512)
+* Update interface `holdings-storage` to version 7.0 (CIRCSTORE-510)
+* Add isDcb flag in loan.json (CIRCSTORE-506)
+* Add required interface `configuration` (CIRCSTORE-505)
+* Keep existing reference/sample data on upgrade (CIRCSTORE-496)
+
+## 17.2.0 2024-03-20
+* Upgrade RMB to 35.2.0, Vert.x to 4.5.5, Spring to 6.1.5 (CIRCSTORE-494)
+* Add `displaySummary` field to `ActualCostRecord` schema (CIRCSTORE-493)
+* Fix NPE for requests with no position (CIRCSTORE-422) 
+* Upgrade actions for API-related workflows (FOLIO-3944)
+* Add more logging to loan POST API (CIRCSTORE-480)
+* Do not close Kafka producer after publishing (CIRCSTORE-477)
+* Update folio-kafka-wrapper to version 3.0.2 (CIRCSTORE-473)
+* Add missing indexes to table audit_loan (CIRCSTORE-474)
+* Publish circulation rules update events (CIRCSTORE-470)
+* Add migration script to include search slips in the DB (CIRCSTORE-465)
+* Fix spelling of `fulfillmentPreference` in existing requests (CIRCSTORE-460)
+* Update RMB to v35.1, Vert.x to v4.4.5 (CIRCSTORE-459)
+* Fix NPE in request search fields migration (CIRCSTORE-457)
+
+## 17.1.0 2023-10-12
+* Add notice triggering event `Due date - with reminder fee` (CIRCSTORE-452)
+* Add missing descriptions to JSON-schemas (CIRCSTORE-409)
+* Change `instaceId` index - remove accents (CIRCSTORE-453)
+* Add b-tree index of action for `loan` table (CIRCSTORE-272)
+* Create constraints only if they don't exist (CIRCSTORE-445)
+* Return single error for invalid request policy (CIRCSTORE-451)
+* Validate allowed service points on POST and PUT (CIRCSTORE-429)
+* Allow to create Actual cost record without Expiration date (CIRCSTORE-447)
+* Add allowed pickup service points to request policy schema (CIRCSTORE-424)
+* Fix slow response for CQL searching - requests (CIRCSTORE-411)
+* Migrate to Java 17 (CIRCSTORE-430)
+* Add metadata object information to circ rules editor screen (CIRCSTORE-410)
+* Modify circulation DTOs to include source field (CIRCSTORE-431)
+* Use new RMB readonly APIs (CIRCSTORE-359)
+* Implement GET, POST and DELETE endpoints for checkout lock (CIRCSTORE-416)
+* Add sessionId to scheduled notice and patron action session (CIRCSTORE-421)
+* Update request seach index when service point is updated (CIRCSTORE-408)
+* Add property `loan.reminders` (CIRCSTORE-414)
+* Use GitHub Workflows api-lint and api-schema-lint and api-doc (CIRCSTORE-415)
+* Change spelling of `fulfilmentPreference` (CIRSTORE-413)
+* Add logging to abstract request migration service (CIRCSTORE-400)
+* Handle item update events (CIRCSTORE-407)
+* Implement search fields migration (CIRCSTORE-400)
+* Search index fields migration script skeleton (CIRCSTORE-399)
+* Add effective call number, shelving order and pickup service point name fields to the request schema (CIRCSTORE-398)
+* Add b-tree indices to DB schema (CIRCSTORE-402)
+* Create index for Actual Cost Record `status` field (CIRCSTORE-397)
+* Add default configuration handling for not initialized TLR settings (CIRCSTORE-412)
+
 ## 16.0.0 2023-02-15
 * Use folio-kafka-wrapper service to work with KafkaAdminClient (CIRCSTORE-369)
 * Add TLR requests expiration logic and queue recalculation (CIRCSTORE-368)

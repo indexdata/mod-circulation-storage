@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>mod-circulation-storage</artifactId>
   <groupId>org.folio</groupId>
-  <version>16.1.0-SNAPSHOT</version>
+  <version>17.3.6-SNAPSHOT</version>
   <licenses>
     <license>
       <name>Apache License 2.0</name>
@@ -28,14 +28,24 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <ramlfiles_path>${basedir}/ramls</ramlfiles_path>
-    <vertx-version>4.3.5</vertx-version>
-    <raml-module-builder-version>35.0.4</raml-module-builder-version>
-    <spring.version>5.3.23</spring.version>
+    <vertx-version>4.5.9</vertx-version>
+    <raml-module-builder-version>35.3.0</raml-module-builder-version>
+    <spring.version>6.1.5</spring.version>
+
+    <!--Folio dependencies properties-->
+    <folio-module-descriptor-validator.version>1.0.0</folio-module-descriptor-validator.version>
     <argLine />
   </properties>
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-bom</artifactId>
+        <version>2.20.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
       <dependency>
         <groupId>io.vertx</groupId>
         <artifactId>vertx-stack-depchain</artifactId>
@@ -46,14 +56,7 @@
       <dependency>
         <groupId>org.testcontainers</groupId>
         <artifactId>testcontainers-bom</artifactId>
-        <version>1.17.3</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-bom</artifactId>
-        <version>2.17.2</version>
+        <version>1.19.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -80,7 +83,7 @@
     <dependency>
       <groupId>org.folio</groupId>
       <artifactId>folio-kafka-wrapper</artifactId>
-      <version>2.7.0</version>
+      <version>3.1.1</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -181,11 +184,16 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-      <version>3.12.0</version>
+      <version>3.17.0</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.17.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-slf4j-impl</artifactId>
+      <artifactId>log4j-slf4j2-impl</artifactId>
     </dependency>
     <dependency>
       <groupId>org.testcontainers</groupId>
@@ -221,7 +229,7 @@
     <url>https://github.com/folio-org/mod-circulation-storage</url>
     <connection>scm:git:git://github.com:folio-org/mod-circulation-storage.git</connection>
     <developerConnection>scm:git:git@github.com:folio-org/mod-circulation-storage.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>v17.3.0</tag>
   </scm>
 
   <build>
@@ -316,12 +324,12 @@
           <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
-            <version>1.9.19</version>
+            <version>1.9.22</version>
           </dependency>
           <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjtools</artifactId>
-            <version>1.9.19</version>
+            <version>1.9.22</version>
           </dependency>
         </dependencies>
       </plugin>
@@ -507,6 +515,18 @@
             <include>org/folio/**</include>
           </includes>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.folio</groupId>
+        <artifactId>folio-module-descriptor-validator</artifactId>
+        <version>${folio-module-descriptor-validator.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>validate</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

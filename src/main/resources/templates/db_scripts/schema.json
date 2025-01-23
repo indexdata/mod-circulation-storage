@@ -152,6 +152,18 @@
       ]
     },
     {
+      "tableName": "circulation_settings",
+      "withMetadata": true,
+      "withAuditing": false,
+      "uniqueIndex": [
+        {
+          "fieldName": "name",
+          "tOps": "ADD",
+          "caseSensitive": false
+        }
+      ]
+    },
+    {
       "tableName": "request",
       "withMetadata": true,
       "withAuditing": false,
@@ -223,6 +235,30 @@
           "tOps": "ADD",
           "caseSensitive": false,
           "removeAccents": false
+        },
+        {
+          "fieldName": "item.itemEffectiveLocationId",
+          "tOps": "ADD",
+          "caseSensitive": false,
+          "removeAccents": false
+        },
+        {
+          "fieldName": "item.itemEffectiveLocationName",
+          "tOps": "ADD",
+          "caseSensitive": false,
+          "removeAccents": false
+        },
+        {
+          "fieldName": "item.retrievalServicePointId",
+          "tOps": "ADD",
+          "caseSensitive": false,
+          "removeAccents": false
+        },
+        {
+          "fieldName": "item.retrievalServicePointName",
+          "tOps": "ADD",
+          "caseSensitive": false,
+          "removeAccents": false
         }
       ],
       "fullTextIndex": [
@@ -273,7 +309,7 @@
           "fieldName": "instanceId",
           "tOps": "ADD",
           "caseSensitive": false,
-          "removeAccents": false
+          "removeAccents": true
         },
         {
           "fieldName": "searchIndex.pickupServicePointName",
@@ -283,6 +319,30 @@
         },
         {
           "fieldName": "searchIndex.shelvingOrder",
+          "tOps": "ADD",
+          "caseSensitive": false,
+          "removeAccents": false
+        },
+        {
+          "fieldName": "item.itemEffectiveLocationId",
+          "tOps": "ADD",
+          "caseSensitive": false,
+          "removeAccents": false
+        },
+        {
+          "fieldName": "item.itemEffectiveLocationName",
+          "tOps": "ADD",
+          "caseSensitive": false,
+          "removeAccents": false
+        },
+        {
+          "fieldName": "item.retrievalServicePointId",
+          "tOps": "ADD",
+          "caseSensitive": false,
+          "removeAccents": false
+        },
+        {
+          "fieldName": "item.retrievalServicePointName",
           "tOps": "ADD",
           "caseSensitive": false,
           "removeAccents": false
@@ -502,13 +562,46 @@
           "tOps": "ADD"
         }
       ]
+    },
+    {
+      "tableName": "audit_loan",
+      "withMetadata": false,
+      "likeIndex": [
+        {
+          "fieldName": "loan.id",
+          "tOps": "ADD",
+          "caseSensitive": false,
+          "removeAccents": true
+        },
+        {
+          "fieldName": "loan.action",
+          "tOps": "ADD",
+          "caseSensitive": false,
+          "removeAccents": true
+        }
+      ]
+    },
+    {
+      "tableName": "print_events",
+      "withMetadata": true,
+      "withAuditing": false,
+      "index": [
+        {
+          "fieldName": "requestId",
+          "tOps": "ADD",
+          "caseSensitive": true,
+          "removeAccents": false,
+          "sqlExpression": "(jsonb->>'requestId')",
+          "sqlExpressionQuery": "$"
+        }
+      ]
     }
   ],
   "scripts": [
       {
       "run": "before",
       "snippetPath": "createIsbnFunctions.sql",
-      "fromModuleVersion": "12.3.0"
+      "fromModuleVersion": "17.3.4"
     },
     {
       "run": "after",
@@ -526,12 +619,32 @@
     },
     {
       "run": "after",
+      "snippetPath": "add_search_slips.sql",
+      "fromModuleVersion": "17.2.0"
+    },
+    {
+      "run": "after",
+      "snippetPath": "add_staff_slips_transit_mediated_requests.sql",
+      "fromModuleVersion": "17.3.0"
+    },
+    {
+      "run": "after",
       "snippetPath": "removePositionFromClosedRequests.sql",
       "fromModuleVersion": "14.0.0"
     },
     {
       "run": "after",
       "snippetPath": "create_checkout_lock_table.sql"
+    },
+    {
+      "run": "after",
+      "snippetPath": "fixSpellingOfFulfillmentPreference.sql",
+      "fromModuleVersion": "17.1.2"
+    },
+    {
+      "run": "after",
+      "snippetPath": "add_due_date_slips.sql",
+      "fromModuleVersion": "17.3.0"
     }
   ]
 }

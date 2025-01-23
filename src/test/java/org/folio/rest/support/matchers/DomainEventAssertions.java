@@ -5,15 +5,20 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.folio.kafka.KafkaHeaderUtils.kafkaHeadersToMap;
 import static org.folio.okapi.common.XOkapiHeaders.TENANT;
 import static org.folio.okapi.common.XOkapiHeaders.URL;
+import static org.folio.okapi.common.XOkapiHeaders.USER_ID;
 import static org.folio.rest.api.StorageTestSuite.TENANT_ID;
 import static org.folio.rest.api.StorageTestSuite.storageUrl;
 import static org.folio.rest.support.kafka.FakeKafkaConsumer.getCheckInEvents;
+import static org.folio.rest.support.kafka.FakeKafkaConsumer.getCirculationRulesEvents;
 import static org.folio.rest.support.kafka.FakeKafkaConsumer.getFirstLoanEvent;
+import static org.folio.rest.support.kafka.FakeKafkaConsumer.getFirstRequestQueueReorderingEvent;
 import static org.folio.rest.support.kafka.FakeKafkaConsumer.getLastCheckInEvent;
+import static org.folio.rest.support.kafka.FakeKafkaConsumer.getLastCirculationRulesEvent;
 import static org.folio.rest.support.kafka.FakeKafkaConsumer.getLastLoanEvent;
 import static org.folio.rest.support.kafka.FakeKafkaConsumer.getLastRequestEvent;
 import static org.folio.rest.support.kafka.FakeKafkaConsumer.getLoanEvents;
 import static org.folio.rest.support.kafka.FakeKafkaConsumer.getRequestEvents;
+import static org.folio.rest.support.kafka.FakeKafkaConsumer.getRequestQueueReorderingEvents;
 import static org.folio.rest.support.matchers.UUIDMatchers.hasUUIDFormat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -22,14 +27,17 @@ import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
 import org.awaitility.Awaitility;
 import org.awaitility.core.ConditionFactory;
+import org.folio.rest.jaxrs.model.RequestQueueReordering;
 import org.folio.service.event.DomainEventType;
 
 import io.vertx.core.MultiMap;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.kafka.client.consumer.KafkaConsumerRecord;
 import io.vertx.kafka.client.producer.KafkaHeader;
@@ -38,6 +46,7 @@ import lombok.SneakyThrows;
 public final class DomainEventAssertions {
 
   private static final String NULL_ID = "00000000-0000-0000-0000-000000000000";
+  private static final String FOLIO_TENANT_ID = "folio.tenantId";
 
   private DomainEventAssertions() { }
 
@@ -103,6 +112,20 @@ public final class DomainEventAssertions {
     assertCreateEvent(getLastRequestEvent(requestId), request);
   }
 
+  public static void assertRequestQueueReorderingEvent(String instanceId, String itemId,
+    List<String> requestIds, RequestQueueReordering.RequestLevel requestLevel) {
+
+    await().until(() -> getRequestQueueReorderingEvents().size(), greaterThan(0));
+
+    JsonObject payload = new JsonObject()
+      .put("instanceId", instanceId)
+      .put("itemId", itemId)
+      .put("requestLevel", requestLevel.value())
+      .put("requestIds", new JsonArray(requestIds));
+
+    assertCreateEvent(getFirstRequestQueueReorderingEvent(), payload);
+  }
+
   public static void assertNoRequestEvent(String requestId) {
     await().during(1, SECONDS)
       .until(() -> getRequestEvents(requestId), is(empty()));
@@ -114,6 +137,11 @@ public final class DomainEventAssertions {
     await().until(() -> getRequestEvents(requestId).size(), greaterThan(0));
 
     assertUpdateEvent(getLastRequestEvent(requestId), oldRequest, newRequest);
+  }
+
+  public static void assertUpdateEventForCirculationRules(JsonObject oldRules, JsonObject newRules) {
+    await().until(() -> getCirculationRulesEvents().size(), greaterThan(0));
+    assertUpdateEvent(getLastCirculationRulesEvent(), oldRules, newRules);
   }
 
   public static void assertRemoveEventForRequest(JsonObject request) {
@@ -184,9 +212,11 @@ public final class DomainEventAssertions {
     final MultiMap caseInsensitiveMap = caseInsensitiveMultiMap()
         .addAll(kafkaHeadersToMap(headers));
 
-    assertEquals(2, caseInsensitiveMap.size());
+    assertEquals(4, caseInsensitiveMap.size());
     assertEquals(TENANT_ID, caseInsensitiveMap.get(TENANT));
     assertEquals(storageUrl("").toString(), caseInsensitiveMap.get(URL));
+    assertEquals(TENANT_ID, caseInsensitiveMap.get(FOLIO_TENANT_ID));
+    assertNotNull(USER_ID);
   }
 
   private static JsonObject getOldValue(KafkaConsumerRecord<String, JsonObject> event) {
