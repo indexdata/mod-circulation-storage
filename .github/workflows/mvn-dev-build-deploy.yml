@@ -8,9 +8,9 @@ on:
 
 env:
   PUBLISH_BRANCH: 'deployment'
-  OKAPI_URL: 'https://orchid-dev-okapi.folio-dev.indexdata.com'
-  OKAPI_SECRET_USER: "${{ secrets.ORCHID_DEV_OKAPI_USER }}"
-  OKAPI_SECRET_PASSWORD: "${{ secrets.ORCHID_DEV_OKAPI_PASSWORD }}"
+  OKAPI_URL: 'https://folio-dev-new-okapi.folio-dev.indexdata.com'
+  OKAPI_SECRET_USER: "${{ secrets.FOLIO_DEV_NEW_OKAPI_USER }}"
+  OKAPI_SECRET_PASSWORD: "${{ secrets.FOLIO_DEV_NEW_OKAPI_PASSWORD }}"
   OK_SESSION: 'session1'
 
 jobs:
